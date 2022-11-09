@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 #include<stdlib.h>
 
 struct abc
@@ -57,13 +58,14 @@ void insertM(struct abc *head)
 	p->prv=new;
 }
 
-void deleteP(struct abc *head)
+struct abc* deleteP(struct abc *head)
 {
     struct abc *temp;
     temp=head;
     head->next->prv=NULL;
     head=head->next;
     free(temp);
+    return head;
 }
 void deleteM(struct abc *head)
 {
@@ -106,6 +108,17 @@ void countM(struct abc *head)
     printf("No. of members in a club %d",count);
 }
 
+void reverse(struct abc *head,struct abc *temp)
+{
+	if(temp!=NULL)
+	{
+		printf("%s %d\n",temp->name,temp->PRN);
+		temp=temp->prv;
+		reverse(head,temp);
+	}
+}
+	
+	
 
 	
 
@@ -114,7 +127,7 @@ void countM(struct abc *head)
 int main()
 {
     int ch;
-	struct abc *head;
+	struct abc *head,*temp;
 	head=(struct abc*)malloc(sizeof(struct abc));
 	printf("Enter President name :");
 	//gets(head->name);
@@ -128,7 +141,7 @@ int main()
 	
 	do
 	{
-		printf("\n1.insert member\n2.Delete Member\n3.Delete President\n4.Delete Secretary\n5.No of members\n6.Display members\n");
+		printf("\n1.insert member\n2.Delete Member\n3.Delete President\n4.Delete Secretary\n5.No of members\n6.Display members\n7.reverse");
 		printf("Enter your choice");
 		scanf("%d",&ch);
 		printf("\n");
@@ -141,7 +154,7 @@ int main()
 			    deleteM(head);
 			    break;
 			case 3:
-			    deleteP(head);
+			    head=deleteP(head);
 			    break;
 			case 4:
 			    deleteS(head);
@@ -152,9 +165,18 @@ int main()
 			case 6:
 			    Display(head);
 			    break;
+			case 7:
+			    temp=head;
+			    while(temp->next!=NULL)
+			    {
+				temp=temp->next;
+			    }
+			    
+			    reverse(head,temp);
+			   break;
 		}
 	}
-	while(ch!=7);
+	while(ch!=8);
 	
 			    
 				
@@ -163,3 +185,6 @@ int main()
 
 
 
+
+   
+   
