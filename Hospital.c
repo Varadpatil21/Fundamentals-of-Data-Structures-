@@ -1,11 +1,12 @@
 #include <stdio.h>
-
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 struct hospital
 {
     int sr, age;
-    long int Mo_no;
-    char name[30], disease[30];
+    char Mo_no[10];
+    char name[10], disease[10];
     struct hospital *next;
 };
 int count = 0;
@@ -13,17 +14,25 @@ struct hospital *head = NULL;
 struct hospital *insert()
 {
     struct hospital *ter, *new;
+    char r[10];
     new = (struct hospital *)malloc(sizeof(struct hospital));
     ter = head;
-
-    /*
-    scanf("%d%d%d %s %s",&new->sr,&new->age,&new->Mo_no,new->name,new->disease);*/
+    printf("Please Enter details of Patient...\n");
+    printf("\nEnter Sr. No.:");
     scanf("%d", &new->sr);
+    printf("\nEnter Name:");
+
+    scanf(" %s",r);
+    strcpy(new->name,r);
+    printf("\nEnter Age:");
     scanf("%d", &new->age);
-    scanf("%ld",&new->Mo_no);
-    
-    scanf(" %s", new->name);
+    printf("\nEnter Mobile No.:");
+    scanf(" %s",new->Mo_no);
+    printf("\nEnter a disease:");
     scanf(" %s", new->disease);
+  // printf("%s",new->name);
+    printf("%d %s %d %s %s\n",new->sr,new->name,new->age,new->Mo_no,new->disease);
+
     if (count == 0)
     {
         new->next = NULL;
@@ -55,42 +64,6 @@ struct hospital *Delete()
     printf("Enter the serial no. of patient that has to be deleted from record\n");
     scanf("%d", &data);
     temp = head;
-   /* if (data != 1)
-    {
-        for (int x = 1; x < data; x++)
-        {
-            r = temp;
-            temp = temp->next;
-        }
-    }
-    if (temp->next != NULL && data != 1)
-    {
-        r->next = temp->next;
-        rlog = temp->sr;
-        rt = temp;
-        for (int x = rlog; x < count; x++)
-        {
-            rt = rt->next;
-            rt->sr--;
-        }
-        free(temp);
-    }
-    else if (data == 1)
-    {
-        head = head->next;
-        rt = temp;
-        for (int x = 1; x < count; x++)
-        {
-            rt = rt->next;
-            rt->sr--;
-        }
-        free(temp);
-    }
-    else if (temp->next == NULL)
-    {
-       head=NULL;
-        free(temp);
-    }*/
     if(data==1)
     {
         head=head->next;
@@ -132,67 +105,122 @@ struct hospital *Delete()
 }
 void search()
 {
+    char n[10];
     struct hospital *ten;
     ten = head;
-    ten = (struct hospital *)malloc(sizeof(struct hospital));
+    int c;
+    printf("Enter name you want to search:");
+    scanf(" %s",n);
+    while(ten->next!=NULL)
+    {
+        c=strcmp(n,ten->name);
+        if(c==0)
+            break;
+        ten=ten->next;
+    }  
+    printf("Searching for a patient...\n");
+    int a;
+    for( a=1;a<8;a++)
+    {
+        sleep(1);
+        printf("...");
+    }  
+    printf("\nPatient Found\n");
+    printf("Details are\n");
+    printf("%d %s %d %s %s\n",ten->sr,ten->name,ten->age,ten->Mo_no,ten->disease);
 
-    int a = 0;
-    printf("Enter the age of person\n");
-    scanf("%d", &a);
-    while (ten->next != NULL)
-    {
-        if (ten->age == a)
-        {
-            printf("%d\n", ten->sr);
-            printf("%d\n", ten->age);
-            for (int i = 0; i < 10; i++)
-            {
-                printf("%d", ten->Mo_no);
-            }
-            printf(" \n %s \n", ten->name);
-            printf(" %s \n", ten->disease);
-        }
-        ten = ten->next;
-    }
-    if (ten->age == a)
-    {
-        printf("%d\n", ten->sr);
-        printf("%d\n", ten->age);
-        for (int i = 0; i < 10; i++)
-        {
-            printf("%d", ten->Mo_no);
-        }
-        printf(" \n %s \n", ten->name);
-        printf(" %s \n", ten->disease);
-    }
+   
 }
 
 void display()
 {
     struct hospital *temp;
     temp=head;
+    printf("Sr.No.\tName\tAge\tMo.No.\tDisease\n");
+    printf("----------------------------------------\n");
     while(temp!=NULL)
     {
-        printf("%d %s %d %ld %s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+        printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
         temp=temp->next;
+    }
+
+}
+
+void displaya()
+{
+    int ch;
+    printf("Age group\n");
+    printf("1.Childrens\n2.Adults\n3.Senior Citizens\n");
+    printf("Enter your choice:");
+    scanf("%d",&ch);
+    struct hospital *temp;
+    temp=head;
+    if(ch==1)
+    {
+        while(temp!=NULL)
+        {
+            if(temp->age<18)
+            {
+                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+            }
+            temp=temp->next;
+        }
+    }
+    if(ch==2)
+    {
+        while(temp!=NULL)
+        {
+            if(temp->age>18 && temp->age<60)
+            {
+                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+            }
+            temp=temp->next;
+        }
+    }
+   else
+    {
+        while(temp!=NULL)
+        {
+            if(temp->age>60)
+            {
+                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+            }
+            temp=temp->next;
+        }
     }
 
 }
 int main()
 {
-    // Write C code here
-    printf("Hello world\n");
-    head = (struct hospital *)malloc(sizeof(struct hospital));
-    head = insert();
-    display();
-    head = insert();
-     display();
-    head = insert();
-     display();
-    head = insert();
-     display();
-    head = Delete();
-     display();
-    //search();
+    int ch,y;
+	do
+	{
+		printf("----------------------------------------\n");
+        printf("Welcome to Hospital Management System\n");
+        printf("----------------------------------------\n");
+		printf("1.Insert a Patient\n2.Delete a Patient\n3.Search for a patient\n4.Display\n5.Display records as per age\n");
+		printf("Enter your choice:");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				head=insert();
+				break;
+			case 2:
+				head=Delete();
+				break;
+			case 3:
+				search();
+				break;
+			case 4:
+				display();
+				break;
+            case 5:
+                displaya();
+                break;
+		}
+		printf("\nDo you want to continue(0/1):");
+		scanf("%d",&y);
+	}while(y==1);
     return 0;
 }
