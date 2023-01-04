@@ -5,7 +5,7 @@
 struct hospital
 {
     int sr, age;
-    char Mo_no[10];
+    long long int Mo_no;
     char name[10], disease[10];
     struct hospital *next;
 };
@@ -22,16 +22,16 @@ struct hospital *insert()
     scanf("%d", &new->sr);
     printf("\nEnter Name:");
 
-    scanf(" %s",r);
-    strcpy(new->name,r);
+    scanf(" %s",new->name);
+    //strcpy(new->name,r);
     printf("\nEnter Age:");
     scanf("%d", &new->age);
     printf("\nEnter Mobile No.:");
-    scanf(" %s",new->Mo_no);
+    scanf(" %lld",&new->Mo_no);
     printf("\nEnter a disease:");
     scanf(" %s", new->disease);
   // printf("%s",new->name);
-    printf("%d %s %d %s %s\n",new->sr,new->name,new->age,new->Mo_no,new->disease);
+    printf("%d %s %d %lld %s\n",new->sr,new->name,new->age,new->Mo_no,new->disease);
 
     if (count == 0)
     {
@@ -127,7 +127,9 @@ void search()
     }  
     printf("\nPatient Found\n");
     printf("Details are\n");
-    printf("%d %s %d %s %s\n",ten->sr,ten->name,ten->age,ten->Mo_no,ten->disease);
+    printf("Sr.No.\tName\tAge\tMo.No.\tDisease\n");
+    printf("----------------------------------------\n");
+    printf("%d %s %d %lld %s\n",ten->sr,ten->name,ten->age,ten->Mo_no,ten->disease);
 
    
 }
@@ -140,7 +142,7 @@ void display()
     printf("----------------------------------------\n");
     while(temp!=NULL)
     {
-        printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+        printf("%d\t%s\t%d\t%lld\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
         temp=temp->next;
     }
 
@@ -161,7 +163,7 @@ void displaya()
         {
             if(temp->age<18)
             {
-                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+                printf("%d\t%s\t%d\t%lld\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
             }
             temp=temp->next;
         }
@@ -172,7 +174,7 @@ void displaya()
         {
             if(temp->age>18 && temp->age<60)
             {
-                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+                printf("%d\t%s\t%d\t%lld\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
             }
             temp=temp->next;
         }
@@ -183,7 +185,7 @@ void displaya()
         {
             if(temp->age>60)
             {
-                printf("%d\t%s\t%d\t%s\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
+                printf("%d\t%s\t%d\t%lld\t%s\n",temp->sr,temp->name,temp->age,temp->Mo_no,temp->disease);
             }
             temp=temp->next;
         }
@@ -224,3 +226,11 @@ int main()
 	}while(y==1);
     return 0;
 }
+
+
+
+ 
+   
+
+
+     
