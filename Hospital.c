@@ -21,17 +21,15 @@ struct hospital *insert()
     printf("\nEnter Sr. No.:");
     scanf("%d", &new->sr);
     printf("\nEnter Name:");
-
     scanf(" %s",new->name);
-    //strcpy(new->name,r);
     printf("\nEnter Age:");
     scanf("%d", &new->age);
     printf("\nEnter Mobile No.:");
     scanf(" %lld",&new->Mo_no);
     printf("\nEnter a disease:");
     scanf(" %s", new->disease);
-  // printf("%s",new->name);
-    printf("%d %s %d %lld %s\n",new->sr,new->name,new->age,new->Mo_no,new->disease);
+ 
+    
 
     if (count == 0)
     {
@@ -217,9 +215,9 @@ int main()
 			case 4:
 				display();
 				break;
-            case 5:
-                displaya();
-                break;
+            		case 5:
+                		displaya();
+                		break;
 		}
 		printf("\nDo you want to continue(0/1):");
 		scanf("%d",&y);
