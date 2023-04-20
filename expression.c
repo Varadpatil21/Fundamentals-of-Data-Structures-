@@ -7,8 +7,9 @@ struct tree
 	char data;
 	struct tree *left, *right;
 };
-int top =-1;
+int top =-1,top1=-1;
 struct tree *stack[20];
+struct tree *stack1[15];
 
 void push(struct tree* root) 
 {
@@ -37,6 +38,25 @@ void inorder(struct tree *root)
 		inorder(root->right);
 	}
 }
+void inorder1(struct tree *root)
+{
+    struct tree *curr=root;
+    while(curr!=NULL || top1!=-1)
+    {
+        while(curr!=NULL)
+        {
+            stack1[++top1]=curr;
+            curr=curr->left;
+        }
+        curr=stack1[top1];
+        top1--;
+        printf("%c",curr->data);
+        curr=curr->right;
+    }
+}
+
+    
+
 void operand(char b) 
 {
 	struct tree *root;
@@ -79,6 +99,6 @@ int main()
 		i++;
 	}
 	printf("\nThe inorder traversal of the tree is \n");
-	inorder(stack[top]);
+	inorder1(stack[top]);
 	return 0;
 }
